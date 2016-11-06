@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Psychic Game</title>
+</head>
+<body>
+	<h1>The Psychic Game</h1>
+	<h3>Guess What Letter I'm Currently Thinking Of</h3>
+	<p>Wins:<span id=winCount></span></p>
+	<p>Losses:<span id=lossCount></span></p>
+	<p>Guess Counter:<span id=guessCounter></span></p>
+	<p>Your Guesses:<span id=guesses></span></p>
+
+<script type="text/javascript">
+
+	var winCount = 0;
+	var lossCount = 0;
+	var guessCounter = 9;
+	var guessesSoFar = [];
+	var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+	function reset(){
+		guessCounter = 9;
+		guessesSoFar = [];
+	}
+
+	//formula for computer to make random choice
+	var letterComputerChosen = letters[Math.floor(Math.random() * letters.length)];
+
+	document.onkeyup = function(event) {
+		// displays user key input of a single letter
+		var userChoice = String.fromCharCode(event.keyCode).toLowerCase();
+		// reduces number of guesses with each wrong guess
+		var guessCounter;
+		// show the user the letter they guessed so far
+		guessesSoFar.push(userChoice);
+
+		if (userChoice === letterComputerChosen) {
+			winCount++;
+		} else {
+			(guessCounter = 0)
+				lossCount++;
+		};
+
+		document.querySelector("#winCount").innerHTML = winCount;
+		document.querySelector("#lossCount").innerHTML = lossCount;
+		document.querySelector("#guessCounter").innerHTML = guessCounter;
+		document.querySelector("#guesses").innerHTML = guessesSoFar.join(", ");
+	};
+
+</script>
+</body>
+</html>
